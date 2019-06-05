@@ -1,0 +1,16 @@
+/* ESTILOS DEL PLUGIN */
+
+/*
+**
+	BOTON DE RELACIONAR
+**
+*/
+.categorias .button-primary{
+	/*text-align: right;*/
+	margin-bottom: 20px;
+	float: right;
+}
+
+.imagen img{
+	max-width: 240px;
+}
