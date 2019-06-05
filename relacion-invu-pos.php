@@ -771,13 +771,13 @@ function jejejeje(){
 }
 function deunoUno(productos, posicion){
 
-	console.log("pasa por de 5 en 15 "+posicion);
+	console.log("pasa por de 5 en 5 "+posicion);
 
 	//PRODUCTO A ENVIAR
 	var cualProducto = [];
 
 	var cual = 0;
-	var posicion_nueva = parseFloat(posicion) + 15;
+	var posicion_nueva = parseFloat(posicion) + 5;
 
 	Productos.datosOrdenados.map(productos => {
 		cual++;
