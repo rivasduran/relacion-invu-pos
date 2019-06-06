@@ -10,17 +10,25 @@ include("php/functions.php");
 	function ListarItems(){//ESTA DEVUELVE LOS PRODUCTOS
 		global $wpdb;
 		
-		$mi_api = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}mi_api ");
+		$mi_api = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}mi_api WHERE numero = 1 ");
 		$api_key = "";
 		foreach ($mi_api as $key) {
 			$api_key = $key->nombre;
 		}
 
+		$mi_api = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}mi_api WHERE numero = 2 ");
+		$url_api = "";
+		foreach ($mi_api as $key) {
+			$url_api = $key->nombre;
+		}
+
 		?>
 			<div class='api_key' data-api="<?php echo $api_key ?>"></div>
+			<div class='url_api' data-api="<?php echo $url_api ?>"></div>
 			<script type="text/javascript" >
 				var Mi_api = {
-					'api_key': jQuery(".api_key").attr("data-api")
+					'api_key': jQuery(".api_key").attr("data-api"),
+					'url_api': jQuery(".url_api").attr("data-api")
 				}
 
 				var productos = ""; 
@@ -39,10 +47,10 @@ include("php/functions.php");
 	        			APIKEY : Mi_api.api_key
 	        		},
 					type: "GET",
-					//url: "https://api.invupos.com/invuApiPos/index.php?r=menu/ListarItems",
-					//url: "https://api.invupos.com/invuApiPos/index.php?r=menu/ListarItems/checkStock/true",
-					//url: "https://api.invupos.com/invuApiPos/index.php?r=menu/listarItems/online/1",
-					url: "https://api.invupos.com/invuApiPos/index.php?r=menu/listarItems/online/1/checkStock/true",
+					//url: "https://"+Mi_api.url_api+".invupos.com/invuApiPos/index.php?r=menu/ListarItems",
+					//url: "https://"+Mi_api.url_api+".invupos.com/invuApiPos/index.php?r=menu/ListarItems/checkStock/true",
+					//url: "https://"+Mi_api.url_api+".invupos.com/invuApiPos/index.php?r=menu/listarItems/online/1",
+					url: "https://"+Mi_api.url_api+".invupos.com/invuApiPos/index.php?r=menu/listarItems/online/1/checkStock/true",
 					beforeSend: function(){
 
 					},
@@ -83,6 +91,7 @@ include("php/functions.php");
 	//YA CUANDO TRAEMOS LOS RESULTAMOS ACOMODADOS PROCEDEMOS A REALIZAR LAS CONSULTAS PERTINENTES Y A INSERTAR
 	if(isset($_POST['insertarDB'])){
 		global $wpdb;
+		$url_api = url_api();
 
 		//FORMATO DE LA FECHA Y HORA PARA AGREGAR A WORDPRESS
 		$fechaHora = date("Y-m-d ")." ".strftime("%H:%M:%S");
@@ -104,7 +113,7 @@ include("php/functions.php");
 			$imagen = "";
 			if($datos[$i]->imagen != ""){
 				//echo "<img src='https://admin.invupos.com/invuPos/images/banner/".$datos->data[$i]->imagen."' />";
-				$imagen = "https://admin.invupos.com/invuPos/images/banner/".$datos[$i]->imagen;
+				$imagen = "https://".$url_api.".invupos.com/invuPos/images/banner/".$datos[$i]->imagen;
 			}
 
 			//----->

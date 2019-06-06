@@ -103,7 +103,8 @@
 		//CREAMOS LA TABLA DE LA API
 		$categoria = "CREATE TABLE $tabla_api (
 			id 		mediumint(9) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-			nombre 	varchar(100)
+			nombre 	varchar(100),
+			numero 	varchar(100)
 		) $charset_collate;";
 		dbDelta( $categoria );
 
